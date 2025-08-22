@@ -1,0 +1,171 @@
+/* 🔹 Reset & global */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #f4f6f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  padding: 40px 20px;
+}
+h1, h2, h3 {
+  text-align: center;
+  color: #1a73e8;
+  margin-bottom: 20px;
+}
+
+/* 🔹 Sections login & admin */
+#login-section, #admin-section {
+  max-width: 500px;
+  margin: auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  animation: fadeIn .6s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🔹 Inputs & icons */
+.input-group {
+  position: relative;
+}
+.input-group i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+.input-group i.fa-user { left: 14px; }
+.input-group i.fa-lock { left: 14px; }
+
+input, button {
+  display: block;
+  width: 100%;
+  margin: 15px 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+input { background-color: #f9f9f9; }
+
+button {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  transition: background-color .3s ease;
+  cursor: pointer;
+}
+button:hover { background-color: #155ab6; }
+
+/* 🔹 Contacts */
+.contact {
+  background: white;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform .2s ease;
+}
+.contact:hover { transform: translateY(-2px); }
+.contact p { margin: 5px 0; }
+.contact button {
+  width: auto;
+  margin-right: 10px;
+  padding: 8px 14px;
+  font-size: 14px;
+}
+.contact button.delete {
+  background-color: #f44336;
+}
+.contact button.delete:hover {
+  background-color: #c62828;
+}
+
+/* 🔹 Admin buttons */
+#downloadBtn, #maintenanceBtn {
+  margin-top: 20px;
+  font-weight: bold;
+}
+#maintenanceStatus {
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* 🔹 Modals */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+  padding-top: 60px;
+}
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.modal-content input { margin-bottom: 20px; padding-right: 40px; }
+.close {
+  position: absolute;
+  top: 12px; right: 18px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+}
+.close:hover { color: #f44336; }
+
+/* 🔹 Errors & spinner */
+#error, #code-error { color: red; margin-top: 10px; text-align: center; }
+#spinner { text-align: center; margin-top: 20px; display: none; }
+
+/* 🔹 Toggle password icons */
+#togglePassword, #toggleCodePassword {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
+}
+#togglePassword:hover, #toggleCodePassword:hover { color: #555; }
+
+/* 🔹 Barre de recherche */
+#searchBar {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 10px 0 20px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+#searchBar:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 6px rgba(26,115,232,0.3);
+  outline: none;
+}
+
+/* 🔹 Responsive */
+@media(max-width:600px){
+  body { padding:20px 10px; }
+  #login-section,#admin-section { padding:20px; }
+  .modal-content { width:95%; }
+}
