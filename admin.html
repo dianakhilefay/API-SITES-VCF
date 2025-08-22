@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin - Contact Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-database-compat.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <h1>𝐕𝐂𝐅 𝐀𝐃𝐌𝐈𝐍</h1>
+
+  <div id="login-section">
+    <div class="login-form">
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" id="admin-username" placeholder="Enter admin username">
+      </div>
+      <div class="input-group" style="position: relative;">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="admin-password" placeholder="Enter admin password">
+        <i class="fas fa-eye" id="togglePassword"></i>
+      </div>
+      <button onclick="checkCredentials()">ʟᴏɢɪɴ</button>
+      <div id="spinner"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+      <p id="error"></p>
+    </div>
+  </div>
+
+  <div id="admin-section" style="display: none;">
+    <h2>📋 ᴄᴏɴᴛᴀᴄᴛ ʟɪsᴛ</h2>
+
+    <!-- 🔍 Barre de recherche -->
+    <input type="text" id="searchBar" placeholder="Rechercher par nom ou numéro...">
+
+    <div id="contactsContainer"></div>
+
+    <button id="downloadBtn">📁 ᴅᴏᴡɴʟᴏᴀᴅ ᴠᴄғ</button>
+    <button onclick="toggleMaintenance()" id="maintenanceBtn">🛠️ ᴛᴏɢɢʟᴇ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ</button>
+    <p id="maintenanceStatus"></p>
+  </div>
+
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3>ᴇᴅɪᴛ ᴄᴏɴᴛᴀᴄᴛ</h3>
+      <input type="text" id="modal-name" placeholder="Full Name">
+      <input type="text" id="modal-phone" placeholder="Phone Number">
+      <button onclick="saveContactChanges()">sᴀᴠᴇ ᴄʜᴀɴɢᴇs</button>
+    </div>
+  </div>
+
+  <div id="codeModal" class="modal">
+    <div class="modal-content" style="position: relative;">
+      <span class="close" onclick="closeCodeModal()">&times;</span>
+      <h3>ᴍᴏᴅɪғɪᴄᴀᴛɪᴏɴ ᴄᴏᴅᴇ ʀᴇǫᴜɪʀᴇᴅ</h3>
+      <input type="password" id="code-input" placeholder="Enter code" />
+      <i class="fas fa-eye" id="toggleCodePassword"></i>
+      <button onclick="checkModificationCode()">sᴜʙᴍɪᴛ</button>
+      <p id="code-error" style="display: none;">❌ ɪɴᴄᴏʀʀᴇᴄᴛ ᴄᴏᴅᴇ. ᴘʟᴇᴀsᴇ ᴛʀʏ ᴀɢᴀɪɴ.</p>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
