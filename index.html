@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>𝐕𝐂𝐅 𝐆𝐄𝐍𝐄𝐑𝐀𝐓𝐎𝐑 - 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏 𝐕𝐈𝐄𝐖𝐒</title>
+  <link rel="icon" href="https://files.catbox.moe/zvtzhd.jpg" type="image/jpg" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-database-compat.js"></script>
+
+  <!-- Styles -->
+  <style id="theme-style">
+    :root {
+      --bg-color: #0A0F25;      /* Fond sombre bleu/noir */
+      --text-color: #E0E7FF;    /* Texte clair bleu/blanc */
+      --card-bg: #131B40;       /* Carte légèrement plus clair */
+      --input-bg: #1B2660;      /* Input bleu foncé */
+      --button-bg: #3B59FF;     /* Bouton bleu vif */
+      --highlight: #3B59FF;     /* Highlight bouton et compteur */
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .container {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    input, button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    input {
+      background-color: var(--input-bg);
+      color: var(--text-color);
+    }
+
+    button {
+      background-color: var(--button-bg);
+      color: white;
+      cursor: pointer;
+    }
+
+    #contactCount {
+      color: var(--highlight);
+      font-weight: bold;
+    }
+
+    #toggle-theme {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 20px;
+      background: #3B59FF; /* Toggle bleu */
+      color: white;
+      border: none;
+      cursor: pointer;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    #toggle-theme:hover {
+      background: #5C7CFF;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+<!-- 🛠️ Maintenance screen -->
+<div id="maintenance-screen" style="display: none;">
+  <div style="
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #0A0F25;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 40px;
+  ">
+    <img src="https://i.gifer.com/ZZ5H.gif" alt="maintenance" style="width:100px; height:100px; margin-bottom: 20px;">
+    <h1 style="font-size: 2.5em;">🛠️ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ ᴇɴ ᴄᴏᴜʀs</h1>
+    <p style="font-size: 1.2em; max-width: 500px;">ɴᴏᴛʀᴇ sɪᴛᴇ ᴇsᴛ ᴛᴇᴍᴘᴏʀᴀɪʀᴇᴍᴇɴᴛ ɪɴᴅɪsᴘᴏɴɪʙʟᴇ. ᴍᴇʀᴄɪ ᴅᴇ ʀᴇᴠᴇɴɪʀ ᴘʟᴜs ᴛᴀʀᴅ.</p>
+  </div>
+</div>
+
+<!-- Theme toggle button -->
+<button id="toggle-theme" title="Toggle theme">🌗</button>
+
+<header>
+  <h1>📞 ᴠᴄғ ɢᴇɴᴇʀᴀᴛᴏʀ - ᴡʜᴀᴛsᴀᴘᴘ ᴠɪᴇᴡs</h1>
+  <p>ᴀᴅᴅ ʏᴏᴜʀ ɴᴜᴍʙᴇʀ ᴀɴᴅ ɢᴇᴛ ᴍᴏʀᴇ ᴠɪᴇᴡs ᴏɴ ʏᴏᴜʀ ᴡʜᴀᴛsᴀᴘᴘ sᴛᴀᴛᴜs!</p>
+</header>
+
+<div class="container">
+  <h2>ᴀᴅᴅ ᴀ ᴄᴏɴᴛᴀᴄᴛ</h2>
+  <form id="vcfForm">
+    <input type="text" id="fullName" placeholder="Full Name" required />
+    <input type="tel" id="phone" placeholder="+237XXXXXXXXX" required />
+    <small style="color: #aaa; font-size: 0.85em;">ғᴏʀᴍᴀᴛ: +237682803592</small>
+    <button type="submit">ᴀᴅᴅ ᴄᴏɴᴛᴀᴄᴛ</button>
+  </form>
+
+  <div id="counter">
+    📈 ᴛᴏᴛᴀʟ ᴄᴏɴᴛᴀᴄᴛs sᴀᴠᴇᴅ: <span id="contactCount">0</span>
+  </div>
+
+  <div id="message" style="margin-top: 10px; ғᴏɴᴛ-ᴡᴇɪɢʜᴛ: bold;"></div>
+
+  <div style="margin-top: 20px;">
+    <p>🔒 ᴛʜᴇ ᴠᴄғ ғɪʟᴇ ɪs ᴀᴄᴄᴇssɪʙʟᴇ ᴏɴʟʏ ʙʏ ᴛʜᴇ ᴀᴅᴍɪɴ.</p>
+    <button onclick="window.location.href='https://chat.whatsapp.com/DhwBII0E96R3VyKV9MsRBh?mode=ac_t'">
+      🔗 ᴊᴏɪɴ ᴡʜᴀᴛsᴀᴘᴘ ɢʀᴏᴜᴘ
+    </button>
+  </div>
+</div>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyB6VRVyODDkZNjkdcUJAOny45NgMtEyPQQ",
+    authDomain: "dybytechvcf.firebaseapp.com",
+    databaseURL: "https://dybytechvcf-default-rtdb.firebaseio.com",
+    projectId: "dybytechvcf",
+    storageBucket: "dybytechvcf.firebasestorage.app",
+    messagingSenderId: "201006931483",
+    appId: "1:201006931483:web:c7b6532d4bef230ecae2be",
+    measurementId: "G-K7QK6ZT4FH"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+  const phoneMap = {};
+  let maintenanceMode = false;
+
+  // 🛠️ Check maintenance mode in real-time
+  db.ref('settings/maintenance').on('value', snapshot => {
+    maintenanceMode = snapshot.val();
+    const screen = document.getElementById('maintenance-screen');
+
+    if (maintenanceMode) {
+      document.body.innerHTML = screen.outerHTML;
+      document.getElementById('maintenance-screen').style.display = 'block';
+    } else {
+      if (screen.style.display === 'block') location.reload();
+    }
+  });
+
+  // Load contact data
+  db.ref('contacts').once('value', snapshot => {
+    snapshot.forEach(child => {
+      const data = child.val();
+      phoneMap[data.phone] = data.fullName;
+    });
+    updateCounter();
+  });
+
+  document.getElementById('vcfForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (maintenanceMode) {
+      alert("⚠️ Le site est actuellement en maintenance. Veuillez réessayer plus tard.");
+      return;
+    }
+    const fullName = document.getElementById('fullName').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const msg = document.getElementById('message');
+    if (!fullName || !phone) {
+      msg.textContent = "❗ Please fill in all fields.";
+      msg.style.color = "orange";
+      return;
+    }
+    if (!phone.startsWith("+")) {
+      msg.textContent = "⚠️ Number must start with + (e.g., +237682803592)";
+      msg.style.color = "red";
+      return;
+    }
+    const numberWithoutPlus = phone.slice(1);
+    if (!/^\d+$/.test(numberWithoutPlus)) {
+      msg.textContent = "⚠️ Only digits allowed after the + sign";
+      msg.style.color = "red";
+      return;
+    }
+    if (phone.length < 11 || phone.length > 15) {
+      msg.textContent = "⚠️ Invalid number length (must be 11–15 characters)";
+      msg.style.color = "red";
+      return;
+    }
+    if (phoneMap.hasOwnProperty(phone)) {
+      msg.textContent = "⚠️ This contact already exists.";
+      msg.style.color = "yellow";
+      return;
+    }
+    const newContactRef = db.ref('contacts').push();
+    newContactRef.set({ fullName, phone });
+    phoneMap[phone] = fullName;
+    document.getElementById('fullName').value = '';
+    document.getElementById('phone').value = '';
+    msg.textContent = "✅ ᴄᴏɴᴛᴀᴄᴛ sᴀᴠᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ!";
+    msg.style.color = "lightgreen";
+    updateCounter();
+  });
+
+  function updateCounter() {
+    db.ref('contacts').once('value', snapshot => {
+      document.getElementById('contactCount').textContent = snapshot.numChildren();
+    });
+  }
+
+  const darkTheme = {
+    '--bg-color': '#0A0F25',
+    '--text-color': '#E0E7FF',
+    '--card-bg': '#131B40',
+    '--input-bg': '#1B2660',
+    '--button-bg': '#3B59FF',
+    '--highlight': '#3B59FF'
+  };
+
+  const lightTheme = {
+    '--bg-color': '#ffffff',
+    '--text-color': '#000000',
+    '--card-bg': '#f5f5f5',
+    '--input-bg': '#eeeeee',
+    '--button-bg': '#1e88e5',
+    '--highlight': '#1e88e5'
+  };
+
+  function applyTheme(theme) {
+    for (const key in theme) {
+      document.documentElement.style.setProperty(key, theme[key]);
+    }
+  }
+
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  applyTheme(savedTheme === 'light' ? lightTheme : darkTheme);
+
+  document.getElementById('toggle-theme').addEventListener('click', () => {
+    const current = localStorage.getItem('theme') || 'dark';
+    const newTheme = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+    applyTheme(newTheme === 'light' ? lightTheme : darkTheme);
+  });
+</script>
+
+</body>
+</html>
